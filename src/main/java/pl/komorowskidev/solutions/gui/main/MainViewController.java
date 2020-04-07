@@ -74,10 +74,7 @@ public class MainViewController implements MainContract.ViewController {
     }
 
     private void setListeners() {
-        startButton.setOnAction(event -> {
-            setStartButtonDisable(true);
-            presenter.startSolving(dataTextArea.getText());
-        });
+        startButton.setOnAction(event -> presenter.startSolving(dataTextArea.getText()));
 
         problemNameComboBox
                 .valueProperty()
@@ -106,7 +103,6 @@ public class MainViewController implements MainContract.ViewController {
     @Override
     public void showResult(String result) {
         Platform.runLater(() -> resultTextArea.setText(result));
-        setStartButtonDisable(false);
     }
 
     @Override

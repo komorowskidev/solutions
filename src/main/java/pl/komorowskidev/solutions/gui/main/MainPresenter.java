@@ -49,6 +49,11 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
 
     @Override
     public void startSolving(String data) {
-        view.showResult(problem.getSolution(data));
+        view.setStartButtonDisable(true);
+        view.showResult("working...");
+        new Thread(() -> {
+            view.showResult(problem.getSolution(data));
+            view.setStartButtonDisable(false);
+        }).start();
     }
 }
