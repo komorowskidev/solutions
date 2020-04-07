@@ -2,10 +2,9 @@ package pl.komorowskidev.solutions.gui.main;
 
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Component;
+import pl.komorowskidev.solutions.businesslogic.Model;
+import pl.komorowskidev.solutions.businesslogic.Problem;
 import pl.komorowskidev.solutions.gui.BasePresenter;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 @Component
 public class MainPresenter extends BasePresenter<MainContract.ViewController>
@@ -13,8 +12,13 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
 
     private String applicationVersion;
 
-    public MainPresenter(BuildProperties buildProperties) {
+    private Model model;
+
+    private Problem problem;
+
+    public MainPresenter(BuildProperties buildProperties, Model model) {
         this.applicationVersion = buildProperties.getVersion();
+        this.model = model;
     }
 
     @Override
@@ -25,16 +29,22 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
     @Override
     public void viewPrepared() {
         view.setApplicationVersion(applicationVersion);
-        Set<String> problemsNameSet = new TreeSet<>();
-        problemsNameSet.add("prob1");
-        problemsNameSet.add("prob2");
-        view.setProblemsNames(problemsNameSet);
+        view.setProblemsNames(model.getProblemNameSet());
     }
 
     @Override
     public void problemChanged(String problemName) {
-        view.setDescription("description " + problemName);
-        view.setExampleData("example " + problemName);
+        view.setStartButtonDisable(true);
+        model.getProblem(problemName).ifPresent((newProblem) -> {
+            problem = newProblem;
+            refreshView();
+        });
+    }
+
+    private void refreshView(){
+        view.setStartButtonDisable(false);
+        view.setDescription(problem.getDescription());
+        view.setExampleData(problem.getExampleData());
     }
 
     @Override

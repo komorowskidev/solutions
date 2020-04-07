@@ -77,7 +77,7 @@ public class MainViewController implements MainContract.ViewController {
 
     private void setListeners() {
         startButton.setOnAction(event -> {
-            startButton.setDisable(true);
+            setStartButtonDisable(true);
             presenter.startSolving(dataTextArea.getText());
         });
 
@@ -96,12 +96,16 @@ public class MainViewController implements MainContract.ViewController {
 
     @Override
     public void setProblemsNames(Set<String> problemsNameSet) {
-        Platform.runLater(
-                () -> {
-                    problemNameComboBox.getItems().setAll(problemsNameSet);
-                    problemNameComboBox.getSelectionModel().selectFirst();
-                }
-        );
+        if(problemsNameSet.isEmpty()){
+            setStartButtonDisable(true);
+        } else {
+            Platform.runLater(
+                    () -> {
+                        problemNameComboBox.getItems().setAll(problemsNameSet);
+                        problemNameComboBox.getSelectionModel().selectFirst();
+                    }
+            );
+        }
     }
 
     @Override
@@ -109,9 +113,9 @@ public class MainViewController implements MainContract.ViewController {
         Platform.runLater(
                 () -> {
                     resultTextArea.setText(result);
-                    startButton.setDisable(false);
                 }
         );
+        setStartButtonDisable(false);
     }
 
     @Override
@@ -127,6 +131,15 @@ public class MainViewController implements MainContract.ViewController {
                 () -> {
                     dataTextArea.setText(example);
                     resultTextArea.clear();
+                }
+        );
+    }
+
+    @Override
+    public void setStartButtonDisable(boolean disabled) {
+        Platform.runLater(
+                () -> {
+                    startButton.setDisable(disabled);
                 }
         );
     }
