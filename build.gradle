@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'pl.komorowskidev'
-version '0.1'
+version '0.2'
 
 def projectPath = "$buildDir/$project.name" + "_v" + "$version"
 def binPath = "$projectPath/bin"

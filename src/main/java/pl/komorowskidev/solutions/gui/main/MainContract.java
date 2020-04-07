@@ -10,6 +10,7 @@ public interface MainContract {
         void setProblemsNames(Set<String> problemsNameSet);
         void setDescription(String description);
         void setExampleData(String example);
+        void setStartButtonDisable(boolean disabled);
     }
 
     interface Presenter {
