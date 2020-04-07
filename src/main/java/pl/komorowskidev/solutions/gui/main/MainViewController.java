@@ -1,8 +1,6 @@
 package pl.komorowskidev.solutions.gui.main;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -81,12 +79,9 @@ public class MainViewController implements MainContract.ViewController {
             presenter.startSolving(dataTextArea.getText());
         });
 
-        problemNameComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                presenter.problemChanged(newValue);
-            }
-        });
+        problemNameComboBox
+                .valueProperty()
+                .addListener((observable, oldValue, newValue) -> presenter.problemChanged(newValue));
     }
 
     @Override
@@ -110,19 +105,13 @@ public class MainViewController implements MainContract.ViewController {
 
     @Override
     public void showResult(String result) {
-        Platform.runLater(
-                () -> {
-                    resultTextArea.setText(result);
-                }
-        );
+        Platform.runLater(() -> resultTextArea.setText(result));
         setStartButtonDisable(false);
     }
 
     @Override
     public void setDescription(String description) {
-        Platform.runLater(
-                () -> descriptionTextArea.setText(description)
-        );
+        Platform.runLater(() -> descriptionTextArea.setText(description));
     }
 
     @Override
@@ -137,11 +126,7 @@ public class MainViewController implements MainContract.ViewController {
 
     @Override
     public void setStartButtonDisable(boolean disabled) {
-        Platform.runLater(
-                () -> {
-                    startButton.setDisable(disabled);
-                }
-        );
+        Platform.runLater(() -> startButton.setDisable(disabled));
     }
 
 }

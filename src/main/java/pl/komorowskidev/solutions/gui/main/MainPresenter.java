@@ -49,6 +49,6 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
 
     @Override
     public void startSolving(String data) {
-        view.showResult(data);
+        view.showResult(problem.getSolution(data));
     }
 }
