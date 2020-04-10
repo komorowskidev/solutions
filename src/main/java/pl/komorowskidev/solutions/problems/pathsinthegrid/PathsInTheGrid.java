@@ -3,12 +3,24 @@ package pl.komorowskidev.solutions.problems.pathsinthegrid;
 import org.springframework.stereotype.Component;
 import pl.komorowskidev.solutions.businesslogic.Model;
 import pl.komorowskidev.solutions.businesslogic.Problem;
+import pl.komorowskidev.solutions.exception.DataNotValidException;
+import pl.komorowskidev.solutions.util.LinesFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Component
 public class PathsInTheGrid implements Problem {
 
-    public PathsInTheGrid(Model model) {
+    private LinesFactory linesFactory;
+
+    private PathsInTheGridValidator validator;
+
+    public PathsInTheGrid(Model model, LinesFactory linesFactory, PathsInTheGridValidator validator) {
         model.addProblem(this);
+        this.linesFactory = linesFactory;
+        this.validator = validator;
     }
 
     @Override
@@ -22,8 +34,12 @@ public class PathsInTheGrid implements Problem {
     }
 
     @Override
-    public String getSolution(String data) {
-        return "solution";
+    public String getSolution(String data) throws DataNotValidException {
+        List<String> lines = linesFactory.createLines(data);
+        lines = linesFactory.removeSpaces(lines);
+        validator.validate(lines);
+
+        return linesFactory.createString(lines);
     }
 
     @Override

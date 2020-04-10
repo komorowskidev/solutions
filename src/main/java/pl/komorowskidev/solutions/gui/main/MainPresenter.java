@@ -4,6 +4,7 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Component;
 import pl.komorowskidev.solutions.businesslogic.Model;
 import pl.komorowskidev.solutions.businesslogic.Problem;
+import pl.komorowskidev.solutions.exception.DataNotValidException;
 import pl.komorowskidev.solutions.gui.BasePresenter;
 
 @Component
@@ -52,7 +53,11 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
         view.setStartButtonDisable(true);
         view.showResult("working...");
         new Thread(() -> {
-            view.showResult(problem.getSolution(data));
+            try {
+                view.showResult(problem.getSolution(data));
+            } catch (DataNotValidException e) {
+                view.showResult("Data is not valid. \n" + e.getMessage());
+            }
             view.setStartButtonDisable(false);
         }).start();
     }
