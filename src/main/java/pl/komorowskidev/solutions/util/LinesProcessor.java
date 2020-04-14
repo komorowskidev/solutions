@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class LinesFactory {
+public class LinesProcessor {
 
     public List<String> createLines(String data){
         List<String> result = new ArrayList<>();
@@ -31,5 +31,27 @@ public class LinesFactory {
             result.add(line.replaceAll(" ", ""));
         }
         return result;
+    }
+
+    public char[][] createCharArray(List<String> lines) {
+        int rows = lines.size();
+        int columns = lines.get(0).length();
+        char[][] result = new char[rows][columns];
+        for(int rowIndex = 0; rowIndex < rows; rowIndex++){
+            result[rowIndex] = getRow(columns, lines.get(rowIndex));
+        }
+        return result;
+    }
+
+    private char[] getRow(int columns, String line) {
+        char[] row = new char[columns];
+        for(int columnIndex = 0; columnIndex < columns; columnIndex++){
+            if(columnIndex < line.length()){
+                row[columnIndex] = line.charAt(columnIndex);
+            } else {
+                row[columnIndex] = ' ';
+            }
+        }
+        return row;
     }
 }

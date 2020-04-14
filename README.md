@@ -10,7 +10,7 @@ You can clone this project and set Gradle nature. After that, execute "applicati
 
 ### v0.2
 
-- model and Problem interface
+- solutionsModel and Problem interface
 
 ### v0.1
 

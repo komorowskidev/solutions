@@ -1,11 +1,11 @@
 package pl.komorowskidev.solution.util
 
-import pl.komorowskidev.solutions.util.LinesFactory
+import pl.komorowskidev.solutions.util.LinesProcessor
 import spock.lang.Specification
 
-class LinesFactoryTest extends Specification {
+class LinesProcessorTest extends Specification {
 
-    def linesFactory = new LinesFactory()
+    def linesProcessor = new LinesProcessor()
 
     def "createLines should return empty list when null"(){
         given:
@@ -13,7 +13,7 @@ class LinesFactoryTest extends Specification {
         List<String> expected = new ArrayList<>()
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -25,7 +25,7 @@ class LinesFactoryTest extends Specification {
         List<String> expected = new ArrayList<>()
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -37,7 +37,7 @@ class LinesFactoryTest extends Specification {
         List<String> expected = new ArrayList<>()
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -50,7 +50,7 @@ class LinesFactoryTest extends Specification {
         expected.add("one line")
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -63,7 +63,7 @@ class LinesFactoryTest extends Specification {
         expected.add("one line")
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -77,7 +77,7 @@ class LinesFactoryTest extends Specification {
         expected.add(" second line")
 
         when:
-        List<String> actual = linesFactory.createLines(data)
+        List<String> actual = linesProcessor.createLines(data)
 
         then:
         expected == actual
@@ -88,7 +88,7 @@ class LinesFactoryTest extends Specification {
         List<String> lines = new ArrayList<>()
 
         when:
-        String actual = linesFactory.createString(lines)
+        String actual = linesProcessor.createString(lines)
 
         then:
         actual == ""
@@ -102,7 +102,7 @@ class LinesFactoryTest extends Specification {
         String expected = first
 
         when:
-        String actual = linesFactory.createString(lines)
+        String actual = linesProcessor.createString(lines)
 
         then:
         expected == actual
@@ -120,7 +120,7 @@ class LinesFactoryTest extends Specification {
         String expected = first + "\n" + second + "\n" + third
 
         when:
-        String actual = linesFactory.createString(lines)
+        String actual = linesProcessor.createString(lines)
 
         then:
         expected == actual
@@ -138,9 +138,39 @@ class LinesFactoryTest extends Specification {
         expected.add("threeline")
 
         when:
-        List<String> actual = linesFactory.removeSpaces(lines)
+        List<String> actual = linesProcessor.removeSpaces(lines)
 
         then:
         expected == actual
+    }
+
+    def "creating charArray should add space when lines shorter then first line"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("onel")
+        lines.add("two")
+        lines.add("four")
+        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'w', 'o', ' '], ['f', 'o', 'u', 'r']]
+
+        when:
+        char[][] actual = linesProcessor.createCharArray(lines)
+
+        then:
+        actual == expected
+    }
+
+    def "creating charArray should cut line when longer then first line"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("onel")
+        lines.add("threee")
+        lines.add("four")
+        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'h', 'r', 'e'], ['f', 'o', 'u', 'r']]
+
+        when:
+        char[][] actual = linesProcessor.createCharArray(lines)
+
+        then:
+        actual == expected
     }
 }

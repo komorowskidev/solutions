@@ -2,7 +2,7 @@ package pl.komorowskidev.solutions.gui.main;
 
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Component;
-import pl.komorowskidev.solutions.businesslogic.Model;
+import pl.komorowskidev.solutions.businesslogic.SolutionsModel;
 import pl.komorowskidev.solutions.businesslogic.Problem;
 import pl.komorowskidev.solutions.exception.DataNotValidException;
 import pl.komorowskidev.solutions.gui.BasePresenter;
@@ -13,13 +13,13 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
 
     private String applicationVersion;
 
-    private Model model;
+    private SolutionsModel solutionsModel;
 
     private Problem problem;
 
-    public MainPresenter(BuildProperties buildProperties, Model model) {
+    public MainPresenter(BuildProperties buildProperties, SolutionsModel solutionsModel) {
         this.applicationVersion = buildProperties.getVersion();
-        this.model = model;
+        this.solutionsModel = solutionsModel;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class MainPresenter extends BasePresenter<MainContract.ViewController>
     @Override
     public void viewPrepared() {
         view.setApplicationVersion(applicationVersion);
-        view.setProblemsNames(model.getProblemNameSet());
+        view.setProblemsNames(solutionsModel.getProblemNameSet());
     }
 
     @Override
     public void problemChanged(String problemName) {
         view.setStartButtonDisable(true);
-        model.getProblem(problemName).ifPresent((newProblem) -> {
+        solutionsModel.getProblem(problemName).ifPresent((newProblem) -> {
             problem = newProblem;
             refreshView();
         });

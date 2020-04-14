@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.Set;
 
 @Component
-public class Model {
+public class SolutionsModel {
 
     private Map<String, Problem> problemMap;
 
-    public Model() {
+    public SolutionsModel() {
         problemMap = new HashMap<>();
     }
 
