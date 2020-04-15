@@ -3,13 +3,12 @@ plugins {
     id 'java'
     id "application"
     id 'org.openjfx.javafxplugin' version '0.0.8'
-    id "io.freefair.lombok" version "5.0.0-rc6"
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
 }
 
 group 'pl.komorowskidev'
-version '0.2'
+version '1.0'
 
 def projectPath = "$buildDir/$project.name" + "_v" + "$version"
 def binPath = "$projectPath/bin"
@@ -29,6 +28,12 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    
     implementation 'org.springframework.boot:spring-boot-starter'
 
     compile group: 'org.codehaus.groovy', name: 'groovy', version: '2.5.8'
@@ -39,7 +44,7 @@ dependencies {
 }
 
 javafx {
-    version = "14"
+    version = "11"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 

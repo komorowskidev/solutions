@@ -28,7 +28,7 @@
                         <Insets bottom="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="descriptionTextArea" editable="false" prefHeight="100.0" />
+                  <TextArea fx:id="descriptionTextArea" editable="false" prefHeight="150.0" wrapText="true" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -41,7 +41,7 @@
       <VBox BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="dataLabel" text="Data" />
-            <TextArea fx:id="dataTextArea" prefHeight="200.0" />
+            <TextArea fx:id="dataTextArea" prefHeight="150.0" />
             <BorderPane>
                <center>
                   <Button fx:id="startButton" mnemonicParsing="false" text="Start" BorderPane.alignment="CENTER" />
