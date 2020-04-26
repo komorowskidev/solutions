@@ -4,6 +4,10 @@
 So, this is my code I want to show you.
 You can clone this project and set Gradle nature. After that, execute "application/bootRun" task if you want to run this application, or execute "advanced/buildApplication" if you want to build it. 
 
+### v1.2
+
+- added problem: Blackjack Counting
+
 ### v1.1
 
 - added problem: Median

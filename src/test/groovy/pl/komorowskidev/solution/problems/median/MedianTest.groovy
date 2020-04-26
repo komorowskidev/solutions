@@ -68,11 +68,11 @@ class MedianTest extends Specification {
 
         then:
         3 * linesProcessorMock.createListOfDouble({it.size() > 0}, delimiter) >> {
-            expected1 = it[0]; numberList
+            expected1 = it.first(); numberList
         } >> {
-            expected2 = it[0]; numberList
+            expected2 = it.first(); numberList
         } >> {
-            expected3 = it[0]; numberList}
+            expected3 = it.first(); numberList}
         expected1 == "30 10"
         expected2 == "40 4 6"
         expected3 == "50 3332 55 553 2"
@@ -119,11 +119,11 @@ class MedianTest extends Specification {
 
         then:
         3 * medianOddNumberOfElementsMock.findMedian({it.size > 0}) >> {
-            actual1 = it[0]; 0d
+            actual1 = it.first(); 0d
         } >> {
-            actual2 = it[0]; 0d
+            actual2 = it.first(); 0d
         } >> {
-            actual3 = it[0]; 0d
+            actual3 = it.first(); 0d
         }
         actual1 == numberList1
         actual2 == numberList2
@@ -149,11 +149,11 @@ class MedianTest extends Specification {
 
         then:
         3 * medianEvenNumberOfElementsMock.findMedian({it.size > 0}) >> {
-            actual1 = it[0]; 0d
+            actual1 = it.first(); 0d
         } >> {
-            actual2 = it[0]; 0d
+            actual2 = it.first(); 0d
         } >> {
-            actual3 = it[0]; 0d
+            actual3 = it.first(); 0d
         }
         actual1 == numberList1
         actual2 == numberList2
