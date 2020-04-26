@@ -3,7 +3,6 @@ package pl.komorowskidev.solutions.problems.pathsinthegrid;
 import org.springframework.stereotype.Component;
 import pl.komorowskidev.solutions.exception.DataNotValidException;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
