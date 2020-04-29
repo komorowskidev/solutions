@@ -57,7 +57,7 @@ public class Median implements Problem {
         if(numbers.isEmpty()) {
             throw new DataNotValidException("Empty list of numbers");
         }
-        Double result = null;
+        Double result;
         if(numbers.size() == 1){
             result = numbers.get(0);
         }else if (isSizeOdd(numbers)) {

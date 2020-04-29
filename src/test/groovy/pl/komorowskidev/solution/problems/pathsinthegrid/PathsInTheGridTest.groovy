@@ -46,7 +46,7 @@ class PathsInTheGridTest extends Specification {
         String data = "test1"
         List<String> lines = new ArrayList<>()
         lines.add("test2")
-        List<String> linesWithoutSpaces = new ArrayList<>()
+        def linesWithoutSpaces = new ArrayList<String>()
         linesWithoutSpaces.add("test3")
         linesProcessorMock.createLines(data) >> lines
         def elements = [['a'], ['b']] as char[][]
