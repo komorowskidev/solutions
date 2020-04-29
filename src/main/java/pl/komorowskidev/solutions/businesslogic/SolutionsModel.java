@@ -1,6 +1,7 @@
 package pl.komorowskidev.solutions.businesslogic;
 
 import org.springframework.stereotype.Component;
+import pl.komorowskidev.solutions.problems.Problem;
 
 import java.util.HashMap;
 import java.util.Map;

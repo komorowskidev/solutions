@@ -1,7 +1,7 @@
 package pl.komorowskidev.solutions.problems.pathsinthegrid;
 
 import org.springframework.stereotype.Component;
-import pl.komorowskidev.solutions.businesslogic.Problem;
+import pl.komorowskidev.solutions.problems.Problem;
 import pl.komorowskidev.solutions.businesslogic.SolutionsModel;
 import pl.komorowskidev.solutions.exception.DataNotValidException;
 import pl.komorowskidev.solutions.util.LinesProcessor;
@@ -41,6 +41,16 @@ public class PathsInTheGrid implements Problem {
     }
 
     @Override
+    public String getExampleData() {
+        return "@ + + + +\n" +
+                "+ + + X X\n" +
+                "+ X + + +\n" +
+                "+ + + X +\n" +
+                "+ X + + X\n" +
+                "+ + + + $";
+    }
+
+    @Override
     public String getSolution(String data) throws DataNotValidException {
         List<String> lines = linesProcessor.createLines(data);
         lines = linesProcessor.removeSpaces(lines);
@@ -73,13 +83,4 @@ public class PathsInTheGrid implements Problem {
         return columnIndex < columns && rowIndex < rows;
     }
 
-    @Override
-    public String getExampleData() {
-        return "@ + + + +\n" +
-                "+ + + X X\n" +
-                "+ X + + +\n" +
-                "+ + + X +\n" +
-                "+ X + + X\n" +
-                "+ + + + $";
-    }
 }

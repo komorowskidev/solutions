@@ -3,7 +3,7 @@ package pl.komorowskidev.solutions.gui.main;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Component;
 import pl.komorowskidev.solutions.businesslogic.SolutionsModel;
-import pl.komorowskidev.solutions.businesslogic.Problem;
+import pl.komorowskidev.solutions.problems.Problem;
 import pl.komorowskidev.solutions.exception.DataNotValidException;
 import pl.komorowskidev.solutions.gui.BasePresenter;
 

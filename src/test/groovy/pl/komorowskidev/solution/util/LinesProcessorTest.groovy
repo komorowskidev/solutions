@@ -1,5 +1,6 @@
 package pl.komorowskidev.solution.util
 
+import pl.komorowskidev.solutions.exception.DataNotValidException
 import pl.komorowskidev.solutions.util.LinesProcessor
 import spock.lang.Specification
 
@@ -7,40 +8,28 @@ class LinesProcessorTest extends Specification {
 
     def linesProcessor = new LinesProcessor()
 
-    def "createLines should return empty list when null"(){
-        given:
-        String data = null
-        List<String> expected = new ArrayList<>()
-
+    def "createLines should throw exception when null"(){
         when:
-        List<String> actual = linesProcessor.createLines(data)
+        linesProcessor.createLines(null)
 
         then:
-        expected == actual
+        thrown DataNotValidException
     }
 
-    def "createLines should return empty list when empty string"(){
-        given:
-        String data = ""
-        List<String> expected = new ArrayList<>()
-
+    def "createLines should throw exception when empty string"(){
         when:
-        List<String> actual = linesProcessor.createLines(data)
+        linesProcessor.createLines("")
 
         then:
-        expected == actual
+        thrown DataNotValidException
     }
 
-    def "createLines should return empty list when new line only"(){
-        given:
-        String data = "\n"
-        List<String> expected = new ArrayList<>()
-
+    def "createLines should throw esxception when new line only"(){
         when:
-        List<String> actual = linesProcessor.createLines(data)
+        linesProcessor.createLines("\n")
 
         then:
-        expected == actual
+        thrown DataNotValidException
     }
 
     def "createLines should return one line when one line"(){
@@ -150,7 +139,7 @@ class LinesProcessorTest extends Specification {
         lines.add("onel")
         lines.add("two")
         lines.add("four")
-        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'w', 'o', ' '], ['f', 'o', 'u', 'r']]
+        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'w', 'o', ' '], ['f', 'o', 'u', 'r']] as char[][]
 
         when:
         char[][] actual = linesProcessor.createCharArray(lines)
@@ -165,12 +154,119 @@ class LinesProcessorTest extends Specification {
         lines.add("onel")
         lines.add("threee")
         lines.add("four")
-        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'h', 'r', 'e'], ['f', 'o', 'u', 'r']]
+        char[][] expected = [['o', 'n', 'e', 'l'], ['t', 'h', 'r', 'e'], ['f', 'o', 'u', 'r']] as char[][]
 
         when:
         char[][] actual = linesProcessor.createCharArray(lines)
 
         then:
         actual == expected
+    }
+
+    def "createIntArray should throw exception when lines is null"(){
+        when:
+        linesProcessor.createIntArray(null, 4, " ")
+
+        then:
+        thrown DataNotValidException
+    }
+
+    def "createIntArray should throw exception when lines is empty"(){
+        given:
+        List<String> lines = new ArrayList<>()
+
+        when:
+        linesProcessor.createIntArray(lines, 4, " ")
+
+        then:
+        thrown DataNotValidException
+    }
+
+    def "createIntArray should throw exception when delimiter is null"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("1 4 11 15")
+        lines.add("55 2 5 4")
+        lines.add("123 55 44 15")
+
+        when:
+        linesProcessor.createIntArray(lines, 4, null)
+
+        then:
+        thrown DataNotValidException
+    }
+
+    def "createIntArray should throw exception when delimiter is empty"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("1 4 11 15")
+        lines.add("55 2 5 4")
+        lines.add("123 55 44 15")
+
+        when:
+        linesProcessor.createIntArray(lines, 4, "")
+
+        then:
+        thrown DataNotValidException
+    }
+
+    def "createIntArray should throw exception when columns does not fit to data"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("1 4 11 15")
+        lines.add("55 2 5 4")
+        lines.add("123 55 44 15")
+        int columns = 2
+        String delimiter = " "
+
+        when:
+        linesProcessor.createIntArray(lines, columns, delimiter)
+
+        then:
+        thrown DataNotValidException
+    }
+
+    def "createIntArray should return int array"(){
+        given:
+        List<String> lines = new ArrayList<>()
+        lines.add("1 4 11 15")
+        lines.add("55 2 5 4")
+        lines.add("123 55 44 15")
+        int columns = 4
+        String delimiter = " "
+        int[][] expected = [[1, 4, 11, 15], [55, 2, 5, 4], [123, 55, 44, 15]]
+
+        when:
+        int[][] actual = linesProcessor.createIntArray(lines, columns, delimiter)
+
+        then:
+        actual == expected
+    }
+
+    def "createListOfDouble should create list of double"(){
+        given:
+        def line = "12 4 6.9 55"
+        List<Double> expected = new ArrayList<>()
+        expected.add(12)
+        expected.add(4)
+        expected.add(6.9)
+        expected.add(55)
+
+        when:
+        List<Double> actual = linesProcessor.createListOfDouble(line, " ")
+
+        then:
+        actual == expected
+    }
+
+    def "createListOfDouble should throw exception when element is not a number"(){
+        given:
+        def line = "12 c 6.9 55"
+
+        when:
+        linesProcessor.createListOfDouble(line, " ")
+
+        then:
+        thrown DataNotValidException
     }
 }
