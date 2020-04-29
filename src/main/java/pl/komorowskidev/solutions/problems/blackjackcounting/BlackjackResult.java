@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BlackJackResult {
+public class BlackjackResult {
 
     private int mainValue;
 
     private int additionalValue;
+
 }

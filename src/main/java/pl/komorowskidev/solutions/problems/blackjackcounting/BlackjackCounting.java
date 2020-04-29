@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class BlackJackCounting implements Problem {
+public class BlackjackCounting implements Problem {
 
     private LinesProcessor linesProcessor;
 
-    private BlackJackCounter blackJackCounter;
+    private BlackjackCounter blackjackCounter;
 
-    public BlackJackCounting(SolutionsModel model, LinesProcessor linesProcessor, BlackJackCounter blackJackCounter) {
+    public BlackjackCounting(SolutionsModel model, LinesProcessor linesProcessor, BlackjackCounter blackjackCounter) {
         model.addProblem(this);
         this.linesProcessor = linesProcessor;
-        this.blackJackCounter = blackJackCounter;
+        this.blackjackCounter = blackjackCounter;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BlackJackCounting implements Problem {
         String delimiter = " ";
         List<String> resultList = new ArrayList<>();
         for (String line : lines) {
-            String result = blackJackCounter.count(line.split(delimiter));
+            String result = blackjackCounter.count(line.split(delimiter));
             resultList.add(result);
         }
         return String.join(" ", resultList);

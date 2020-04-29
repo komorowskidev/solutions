@@ -6,7 +6,7 @@ import pl.komorowskidev.solutions.exception.DataNotValidException;
 @Component
 public class CardDecoder {
 
-    public BlackJackResult decodeValue(String card) throws DataNotValidException {
+    public BlackjackResult decodeValue(String card) throws DataNotValidException {
         int mainResult;
         int canAdd = 0;
         if(card.equals("A")){
@@ -17,7 +17,7 @@ public class CardDecoder {
         } else {
             mainResult = getIntegerValue(card);
         }
-        return new BlackJackResult(mainResult, canAdd);
+        return new BlackjackResult(mainResult, canAdd);
     }
 
     private int getIntegerValue(String card) throws DataNotValidException {
